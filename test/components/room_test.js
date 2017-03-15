@@ -5,6 +5,7 @@ import sinon from "sinon"
 
 import Room from "../../web/static/js/components/room"
 import CategoryColumn from "../../web/static/js/components/category_column"
+import ActionItemToggle from "../../web/static/js/components/action_item_toggle"
 
 describe("Room component", () => {
   const mockRetroChannel = { push: sinon.spy(), on: () => {} }
@@ -20,6 +21,25 @@ describe("Room component", () => {
       expect(
         mockRetroChannel.push.calledWith("new_idea", { category: "sad", body: "we don't use our linter" }),
       ).to.equal(true)
+    })
+  })
+
+  describe("ActionItemToggle rendering", () => {
+    it("when the current user is facilitator renders the <ActionItemToggle>", () => {
+      const roomComponent = shallow(
+        <Room retroChannel={mockRetroChannel} isFacilitator users={[]} />)
+
+      expect(roomComponent.containsMatchingElement(
+        <ActionItemToggle />,
+      )).to.equal(true)
+    })
+
+    it("when the current user is not facilitator does not render <ActionItemToggle>", () => {
+      const roomComponent = shallow(<Room retroChannel={mockRetroChannel} users={[]} />)
+
+      expect(roomComponent.containsMatchingElement(
+        <ActionItemToggle on="action-item" ideas={[]} />,
+      )).to.equal(false)
     })
   })
 
