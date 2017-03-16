@@ -12,17 +12,17 @@ class RemoteRetro extends Component {
     this.state = {
       presences: {},
       retroChannel: {},
-      token: window.token,
-      retroUUID: UrlHelpers.parseRetroUUID(location.pathname),
     }
   }
 
   componentWillMount() {
-    const retroChannel = RetroChannel.configure(this.state)
+    const token = window.token
+    const retroUUID = UrlHelpers.parseRetroUUID(location.pathname)
+    const retroChannel = RetroChannel.configure({ token, retroUUID })
 
     retroChannel.on("presence_state", presences => this.setState({ presences }))
-
     retroChannel.join()
+
     this.setState({ retroChannel })
   }
 
