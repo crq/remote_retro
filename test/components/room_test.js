@@ -25,21 +25,17 @@ describe("Room component", () => {
   })
 
   describe("ActionItemToggle rendering", () => {
-    it("when the current user is facilitator renders the <ActionItemToggle>", () => {
-      const roomComponent = shallow(
+    it("when the current user is facilitator renders <ActionItemToggle>", () => {
+      const wrapper = shallow(
         <Room retroChannel={mockRetroChannel} isFacilitator users={[]} />)
 
-      expect(roomComponent.containsMatchingElement(
-        <ActionItemToggle />,
-      )).to.equal(true)
+      expect(wrapper.find(ActionItemToggle)).to.have.length(1)
     })
 
-    it("when the current user is not facilitator does not render <ActionItemToggle>", () => {
-      const roomComponent = shallow(<Room retroChannel={mockRetroChannel} users={[]} />)
+    it("when the current user is not facilitator renders <ActionItemToggle>", () => {
+      const wrapper = shallow(<Room retroChannel={mockRetroChannel} users={[]} />)
 
-      expect(roomComponent.containsMatchingElement(
-        <ActionItemToggle on="action-item" ideas={[]} />,
-      )).to.equal(false)
+      expect(wrapper.find(ActionItemToggle)).to.have.length(1)
     })
   })
 
