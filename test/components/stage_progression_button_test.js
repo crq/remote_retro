@@ -1,5 +1,5 @@
 import React from "react"
-import { mount } from "enzyme"
+import { mount, shallow } from "enzyme"
 import sinon from "sinon"
 
 import StageProgressionButton from "../../web/static/js/components/stage_progression_button"
@@ -61,31 +61,29 @@ describe("StageProgressionButton", () => {
         )
       })
 
-      it("invokes a javascript confirmation", () => {
-        confirmStub = sinon.stub(global, "confirm")
-        stageProgressionButton.simulate("click")
-        expect(confirmStub.called).to.equal(true)
-
-        confirmStub.restore()
+      context("when the stage progression button is clicked", () => {
+        it("opens the modal", () => {
+          stageProgressionButton.find("button").simulate("click")
+          expect(stageProgressionButton.find("Modal").props().isOpen).to.equal(true)
+        })
       })
 
-      context("when the user confirms", () => {
+      context("when clicking yes in the modal", () => {
         beforeEach(() => {
-          confirmStub = sinon.stub(global, "confirm")
-        })
-
-        afterEach(() => {
-          confirmStub.restore()
+          console.log("BEEEEFFFOOOREEEE")
+          stageProgressionButton.find("button").simulate("click")
+          console.log(stageProgressionButton.find("Modal").children("button").first())
+          stageProgressionButton.find("Modal").children("button").first()
+            .simulate("click")
         })
 
         it("pushes `proceed_to_next_stage` to the retroChannel, passing the next stage", () => {
-          confirmStub.returns(true)
-          stageProgressionButton.simulate("click")
-
           expect(
             retroChannel.push.calledWith("proceed_to_next_stage", { stage: "stageDos" })
           ).to.equal(true)
         })
+
+        // it("hides the modal", () => { })
       })
 
       context("when the user does not confirm", () => {
