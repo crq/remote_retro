@@ -70,11 +70,9 @@ describe("StageProgressionButton", () => {
 
       context("when clicking yes in the modal", () => {
         beforeEach(() => {
-          console.log("BEEEEFFFOOOREEEE")
-          stageProgressionButton.find("button").simulate("click")
-          console.log(stageProgressionButton.find("Modal").children("button").first())
-          stageProgressionButton.find("Modal").children("button").first()
-            .simulate("click")
+          console.log(stageProgressionButton.find("Modal").debug())
+          // stageProgressionButton.find("Modal").children("").first()
+          //   .simulate("click")
         })
 
         it("pushes `proceed_to_next_stage` to the retroChannel, passing the next stage", () => {

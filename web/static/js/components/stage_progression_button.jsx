@@ -45,8 +45,8 @@ class StageProgressionButton extends Component {
           isOpen={modalOpen}
         >
           <h1>{ confirmationMessage }</h1>
-          <button onClick={this.handleStageProgression}>Yes</button>
-          <button onClick={this.handleModalClose}>No</button>
+          <button id="yes" onClick={this.handleStageProgression}>Yes</button>
+          <button id="no" onClick={this.handleModalClose}>No</button>
         </Modal>
         <button
           className="fluid ui right labeled teal icon button"
